@@ -13,3 +13,7 @@ P
  src/main/java/org/example/B.java,1\3\1356dbdd713b914368cff635820fe95d92f2c1d2
 X
 (src/main/java/org/example/AppConfig.java,d\2\d2f617a00f5f23df7c7345130665ef2eb10040b5
+V
+&src/main/java/org/example/UserDAO.java,5\8\5831daee8899ff8b8e5869a88cdf99ddc3ef12dc
+S
+#src/main/java/org/example/User.java,6\3\630c5c4e0e52d47836ebc00573e4ecbcf86f377e

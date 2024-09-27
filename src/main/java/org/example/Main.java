@@ -1,32 +1,47 @@
 package org.example;
-import java.sql.*;
 
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.CommandLineRunner;
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-public class Main {
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
 
-    public static void main(String[] args) throws ClassNotFoundException, SQLException {
+@SpringBootApplication
+public class Main implements CommandLineRunner {
 
-        String url = "jdbc:mysql://localhost:3306/trading";
-        String uname = "root";
-        String pass = "8s6w1zt0q0@M";
-        String query = "INSERT INTO user (id, email, name, password, role, is_enabled) VALUES(?,?,?,?,?,?)";
+    @Value("${sql.url}")
+    private String url;
 
-        Connection con = DriverManager.getConnection(url,uname,pass);
-        PreparedStatement pstd = con.prepareStatement(query);
-        pstd.setLong(1,103);
-        pstd.setString(2,"muthu@gmail.com");
-        pstd.setString(3, "Muthu"); // Set name as String
-        pstd.setString(4, "@M"); // Set password as String
-        pstd.setInt(5, 0); // Set status as int
-        pstd.setInt(6, 0); // Set role as int
-        int rowsInserted = pstd.executeUpdate();
+    @Value("${sql.username}")
+    private String uname;
 
+    @Value("${sql.password}")
+    private String pass;
 
-        if(rowsInserted > 0){
-            System.out.println("A new user was inserted Successfully");
+    public static void main(String[] args) {
+        SpringApplication.run(Main.class, args);
+    }
+
+    @Override
+    public void run(String... args) throws SQLException {
+
+        try (Connection con = DriverManager.getConnection(url, uname, pass)) {
+            UserDAO dao = new UserDAO(con);
+
+            User user = new User(142, "muthu@gmail.com", "Muthu", "8s6w1hgsdzt0q0@M", 0, true, 0);
+
+            int rowsInserted = dao.insertUser(user);
+
+            if (rowsInserted > 0) {
+                System.out.println("A new user was inserted successfully.");
+            } else {
+                System.out.println("User insertion failed.");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
-
-        pstd.close();
-        con.close();
     }
 }
