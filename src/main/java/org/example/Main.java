@@ -16,7 +16,7 @@ public class Main {
         pstd.setLong(1,103);
         pstd.setString(2,"muthu@gmail.com");
         pstd.setString(3, "Muthu"); // Set name as String
-        pstd.setString(4, "8s6w1zt0q0@M"); // Set password as String
+        pstd.setString(4, "@M"); // Set password as String
         pstd.setInt(5, 0); // Set status as int
         pstd.setInt(6, 0); // Set role as int
         int rowsInserted = pstd.executeUpdate();
